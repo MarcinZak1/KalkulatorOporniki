@@ -16,11 +16,11 @@ namespace KalkulatorOporniki
         {
             InitializeComponent();
         }
-        string[] wynik = new string[5];
+        string[] wynik = new string[5];                 // zapisujemy wartosci typu string dla poszczegolnych paskow
         double result = 0.0, ohm=0.0, mOhm = 0.0;
         StringBuilder finalResult = new StringBuilder();
 
-
+        // guzik Reset czyści wsztstkie wartosci oraz ustawia RadioButtons jako niewcisniete
         private void btnReset_Click(object sender, EventArgs e)
         {
             rb4paski.Checked = false;
@@ -32,7 +32,7 @@ namespace KalkulatorOporniki
         }
         private void Reset()
         {
-            // przycisk reset czyści nam wszystkie wartości
+            // metoda reset czyści nam wszystkie wartości
             result = 0.0;
             finalResult.Clear();
 
@@ -279,7 +279,6 @@ namespace KalkulatorOporniki
                     default:
                         break;
                 }
-                finalResult.Append(" KOhm");
             }
             cbPasek4.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
             cbPasek5.Enabled = true;            //Mozemy ustawic kolejny pasek
@@ -328,107 +327,104 @@ namespace KalkulatorOporniki
                         break;
                 }
             }
+            // jesli guzik zostal wcisniety wczesniej, to po wybraniu ostatniego paska dokonujemy obliczen
             if(rbOhm.Checked)
             {
-                ohm = result * 1000;
-                finalResult.Clear();
-                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToOhm();
             }
             else if(rbKohm.Checked)
             {
-                finalResult.Clear();
-                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                TokOhm();
             }
             else if(rbMohm.Checked)
             {
-                mOhm = result / 1000;
-                finalResult.Clear();
-                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToMOhm();
             }
             
             cbPasek5.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
         }
-
+        // Wybieramy opornik z 4 paskami
         private void rb4paski_CheckedChanged(object sender, EventArgs e)
         {
             Reset();
             cbPasek1.Enabled = true;
-            cbPasek3.Enabled = false;
             pasek3.Visible = false;
 
         }
-
+        // Wybieramy opornik z 5 paskami
         private void rb5paskow_CheckedChanged(object sender, EventArgs e)
         {
             Reset();
             cbPasek1.Enabled = true;
             pasek3.Visible = true;
         }
-
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
         private void rbOhm_CheckedChanged(object sender, EventArgs e)
         {
             if(rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 && 
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
             {
-                ohm = result * 1000;
-                finalResult.Clear();
-                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToOhm();
             }
 
             if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
             {
-                ohm = result * 1000;
-                finalResult.Clear();
-                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToOhm();
             }
         }
-
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
         private void rbKohm_CheckedChanged(object sender, EventArgs e)
         {
             if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
             {
-                finalResult.Clear();
-                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                TokOhm();
             }
 
             if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
             {
-                finalResult.Clear();
-                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                TokOhm();
             }
             
         }
-
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
         private void rbMohm_CheckedChanged(object sender, EventArgs e)
         {
             if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
             {
-                mOhm = result / 1000;
-                finalResult.Clear();
-                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToMOhm();
             }
 
             if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
                 cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
             {
-                mOhm = result / 1000;
-                finalResult.Clear();
-                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
-                lblWynik.Text = finalResult.ToString();
+                ToMOhm();
             }
-            
+        }
+        // zamiana z kOhm na ohm
+        private void ToOhm()
+        {
+            ohm = result * 1000;
+            finalResult.Clear();
+            finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
+        }
+        // zamiana z kOhm na MOhm
+        private void ToMOhm()
+        {
+            mOhm = result / 1000;
+            finalResult.Clear();
+            finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
+        }
+        private void TokOhm()
+        {
+            finalResult.Clear();
+            finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
         }
        
     }
