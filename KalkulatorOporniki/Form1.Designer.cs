@@ -46,9 +46,9 @@
             this.label2 = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
             this.gbJednostki = new System.Windows.Forms.GroupBox();
-            this.rbOhm = new System.Windows.Forms.RadioButton();
-            this.rbKohm = new System.Windows.Forms.RadioButton();
             this.rbMohm = new System.Windows.Forms.RadioButton();
+            this.rbKohm = new System.Windows.Forms.RadioButton();
+            this.rbOhm = new System.Windows.Forms.RadioButton();
             this.gb.SuspendLayout();
             this.opornik.SuspendLayout();
             this.gbJednostki.SuspendLayout();
@@ -88,8 +88,7 @@
             "Zielony",
             "Niebieski",
             "Fiotelowy",
-            "Szary",
-            " "});
+            "Szary"});
             this.cbPasek5.Location = new System.Drawing.Point(188, 207);
             this.cbPasek5.Name = "cbPasek5";
             this.cbPasek5.Size = new System.Drawing.Size(256, 21);
@@ -111,8 +110,7 @@
             "Żółty",
             "Zielony",
             "Niebieski",
-            "Fiotelowy",
-            " "});
+            "Fiotelowy"});
             this.cbPasek4.Location = new System.Drawing.Point(188, 164);
             this.cbPasek4.Name = "cbPasek4";
             this.cbPasek4.Size = new System.Drawing.Size(256, 21);
@@ -134,8 +132,7 @@
             "Niebieski",
             "Fiotelowy",
             "Szary",
-            "Biały",
-            " "});
+            "Biały"});
             this.cbPasek3.Location = new System.Drawing.Point(188, 119);
             this.cbPasek3.Name = "cbPasek3";
             this.cbPasek3.Size = new System.Drawing.Size(256, 21);
@@ -157,8 +154,7 @@
             "Niebieski",
             "Fiotelowy",
             "Szary",
-            "Biały",
-            " "});
+            "Biały"});
             this.cbPasek2.Location = new System.Drawing.Point(188, 74);
             this.cbPasek2.Name = "cbPasek2";
             this.cbPasek2.Size = new System.Drawing.Size(256, 21);
@@ -169,18 +165,21 @@
             // 
             this.gb.Controls.Add(this.rb5paskow);
             this.gb.Controls.Add(this.rb4paski);
-            this.gb.Location = new System.Drawing.Point(35, 64);
+            this.gb.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.gb.Location = new System.Drawing.Point(12, 59);
             this.gb.Name = "gb";
-            this.gb.Size = new System.Drawing.Size(99, 89);
+            this.gb.Size = new System.Drawing.Size(122, 94);
             this.gb.TabIndex = 5;
             this.gb.TabStop = false;
+            this.gb.Text = "Wybierz opornik";
             // 
             // rb5paskow
             // 
             this.rb5paskow.AutoSize = true;
+            this.rb5paskow.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rb5paskow.Location = new System.Drawing.Point(6, 55);
             this.rb5paskow.Name = "rb5paskow";
-            this.rb5paskow.Size = new System.Drawing.Size(72, 17);
+            this.rb5paskow.Size = new System.Drawing.Size(78, 19);
             this.rb5paskow.TabIndex = 1;
             this.rb5paskow.Text = "5 Pasków";
             this.rb5paskow.UseVisualStyleBackColor = true;
@@ -189,9 +188,10 @@
             // rb4paski
             // 
             this.rb4paski.AutoSize = true;
+            this.rb4paski.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.rb4paski.Location = new System.Drawing.Point(7, 20);
             this.rb4paski.Name = "rb4paski";
-            this.rb4paski.Size = new System.Drawing.Size(60, 17);
+            this.rb4paski.Size = new System.Drawing.Size(65, 19);
             this.rb4paski.TabIndex = 0;
             this.rb4paski.Text = "4 Paski";
             this.rb4paski.UseVisualStyleBackColor = true;
@@ -249,24 +249,25 @@
             // lblWynik
             // 
             this.lblWynik.AutoSize = true;
-            this.lblWynik.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.lblWynik.Font = new System.Drawing.Font("Microsoft Sans Serif", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.lblWynik.Location = new System.Drawing.Point(460, 251);
             this.lblWynik.Name = "lblWynik";
-            this.lblWynik.Size = new System.Drawing.Size(0, 33);
+            this.lblWynik.Size = new System.Drawing.Size(0, 29);
             this.lblWynik.TabIndex = 7;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(170, 249);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(212, 37);
+            this.label2.Size = new System.Drawing.Size(193, 33);
             this.label2.TabIndex = 8;
             this.label2.Text = "Twój opornik";
             // 
             // btnReset
             // 
+            this.btnReset.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.btnReset.Location = new System.Drawing.Point(625, 37);
             this.btnReset.Name = "btnReset";
             this.btnReset.Size = new System.Drawing.Size(77, 47);
@@ -280,44 +281,46 @@
             this.gbJednostki.Controls.Add(this.rbMohm);
             this.gbJednostki.Controls.Add(this.rbKohm);
             this.gbJednostki.Controls.Add(this.rbOhm);
+            this.gbJednostki.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.gbJednostki.Location = new System.Drawing.Point(606, 303);
             this.gbJednostki.Name = "gbJednostki";
             this.gbJednostki.Size = new System.Drawing.Size(134, 115);
             this.gbJednostki.TabIndex = 10;
             this.gbJednostki.TabStop = false;
-            // 
-            // rbOhm
-            // 
-            this.rbOhm.AutoSize = true;
-            this.rbOhm.Location = new System.Drawing.Point(6, 19);
-            this.rbOhm.Name = "rbOhm";
-            this.rbOhm.Size = new System.Drawing.Size(47, 17);
-            this.rbOhm.TabIndex = 0;
-            this.rbOhm.Text = "Ohm";
-            this.rbOhm.UseVisualStyleBackColor = true;
-            this.rbOhm.CheckedChanged += new System.EventHandler(this.rbOhm_CheckedChanged);
-            // 
-            // rbKohm
-            // 
-            this.rbKohm.AutoSize = true;
-            this.rbKohm.Location = new System.Drawing.Point(6, 53);
-            this.rbKohm.Name = "rbKohm";
-            this.rbKohm.Size = new System.Drawing.Size(53, 17);
-            this.rbKohm.TabIndex = 1;
-            this.rbKohm.Text = "kOhm";
-            this.rbKohm.UseVisualStyleBackColor = true;
-            this.rbKohm.CheckedChanged += new System.EventHandler(this.rbKohm_CheckedChanged);
+            this.gbJednostki.Text = "Wybierz jednostkę";
             // 
             // rbMohm
             // 
             this.rbMohm.AutoSize = true;
             this.rbMohm.Location = new System.Drawing.Point(6, 92);
             this.rbMohm.Name = "rbMohm";
-            this.rbMohm.Size = new System.Drawing.Size(56, 17);
+            this.rbMohm.Size = new System.Drawing.Size(63, 19);
             this.rbMohm.TabIndex = 2;
             this.rbMohm.Text = "MOhm";
             this.rbMohm.UseVisualStyleBackColor = true;
             this.rbMohm.CheckedChanged += new System.EventHandler(this.rbMohm_CheckedChanged);
+            // 
+            // rbKohm
+            // 
+            this.rbKohm.AutoSize = true;
+            this.rbKohm.Location = new System.Drawing.Point(6, 53);
+            this.rbKohm.Name = "rbKohm";
+            this.rbKohm.Size = new System.Drawing.Size(58, 19);
+            this.rbKohm.TabIndex = 1;
+            this.rbKohm.Text = "kOhm";
+            this.rbKohm.UseVisualStyleBackColor = true;
+            this.rbKohm.CheckedChanged += new System.EventHandler(this.rbKohm_CheckedChanged);
+            // 
+            // rbOhm
+            // 
+            this.rbOhm.AutoSize = true;
+            this.rbOhm.Location = new System.Drawing.Point(6, 19);
+            this.rbOhm.Name = "rbOhm";
+            this.rbOhm.Size = new System.Drawing.Size(52, 19);
+            this.rbOhm.TabIndex = 0;
+            this.rbOhm.Text = "Ohm";
+            this.rbOhm.UseVisualStyleBackColor = true;
+            this.rbOhm.CheckedChanged += new System.EventHandler(this.rbOhm_CheckedChanged);
             // 
             // Form1
             // 
