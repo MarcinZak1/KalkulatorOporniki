@@ -17,7 +17,7 @@ namespace KalkulatorOporniki
             InitializeComponent();
         }
         string[] wynik = new string[5];
-        double result = 0.0;
+        double result = 0.0, ohm=0.0, mOhm = 0.0;
         StringBuilder finalResult = new StringBuilder();
 
 
@@ -25,6 +25,9 @@ namespace KalkulatorOporniki
         {
             rb4paski.Checked = false;
             rb5paskow.Checked = false;
+            rbOhm.Checked = false;
+            rbKohm.Checked = false;
+            rbMohm.Checked = false;
             Reset();
         }
         private void Reset()
@@ -236,62 +239,42 @@ namespace KalkulatorOporniki
                     case 0:
                         pasek4.BackColor = Color.Silver;
                         result /= 100000;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 1:
                         pasek4.BackColor = Color.Gold;
                         result /= 10000;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 2:
                         pasek4.BackColor = Color.Black;
                         result /= 1000;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 3:
                         pasek4.BackColor = Color.Brown;
                         result /= 100;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 4:
                         pasek4.BackColor = Color.Red;
                         result /= 10;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 5:
                         pasek4.BackColor = Color.Orange;
                         result *= 1;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 6:
                         pasek4.BackColor = Color.Yellow;
                         result *= 10;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 7:
                         pasek4.BackColor = Color.Green;
                         result *= 100;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 8:
                         pasek4.BackColor = Color.Blue;
                         result *= 1000;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     case 9:
                         pasek4.BackColor = Color.Violet;
                         result *= 10000;
-                        finalResult.Clear();
-                        finalResult.Append(result.ToString());
                         break;
                     default:
                         break;
@@ -345,8 +328,27 @@ namespace KalkulatorOporniki
                         break;
                 }
             }
-            finalResult.Append(wynik[4]);
-            lblWynik.Text = finalResult.ToString();
+            if(rbOhm.Checked)
+            {
+                ohm = result * 1000;
+                finalResult.Clear();
+                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+            else if(rbKohm.Checked)
+            {
+                finalResult.Clear();
+                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+            else if(rbMohm.Checked)
+            {
+                mOhm = result / 1000;
+                finalResult.Clear();
+                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+            
             cbPasek5.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
         }
 
@@ -366,6 +368,69 @@ namespace KalkulatorOporniki
             pasek3.Visible = true;
         }
 
+        private void rbOhm_CheckedChanged(object sender, EventArgs e)
+        {
+            if(rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 && 
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
+            {
+                ohm = result * 1000;
+                finalResult.Clear();
+                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+
+            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
+            {
+                ohm = result * 1000;
+                finalResult.Clear();
+                finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+        }
+
+        private void rbKohm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
+            {
+                finalResult.Clear();
+                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+
+            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
+            {
+                finalResult.Clear();
+                finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+            
+        }
+
+        private void rbMohm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
+            {
+                mOhm = result / 1000;
+                finalResult.Clear();
+                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+
+            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
+            {
+                mOhm = result / 1000;
+                finalResult.Clear();
+                finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
+                lblWynik.Text = finalResult.ToString();
+            }
+            
+        }
+       
     }
 
 }

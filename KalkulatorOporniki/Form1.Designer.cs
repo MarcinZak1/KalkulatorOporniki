@@ -45,8 +45,13 @@
             this.lblWynik = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.btnReset = new System.Windows.Forms.Button();
+            this.gbJednostki = new System.Windows.Forms.GroupBox();
+            this.rbOhm = new System.Windows.Forms.RadioButton();
+            this.rbKohm = new System.Windows.Forms.RadioButton();
+            this.rbMohm = new System.Windows.Forms.RadioButton();
             this.gb.SuspendLayout();
             this.opornik.SuspendLayout();
+            this.gbJednostki.SuspendLayout();
             this.SuspendLayout();
             // 
             // cbPasek1
@@ -108,7 +113,7 @@
             "Niebieski",
             "Fiotelowy",
             " "});
-            this.cbPasek4.Location = new System.Drawing.Point(188, 162);
+            this.cbPasek4.Location = new System.Drawing.Point(188, 164);
             this.cbPasek4.Name = "cbPasek4";
             this.cbPasek4.Size = new System.Drawing.Size(256, 21);
             this.cbPasek4.TabIndex = 2;
@@ -270,11 +275,56 @@
             this.btnReset.UseVisualStyleBackColor = true;
             this.btnReset.Click += new System.EventHandler(this.btnReset_Click);
             // 
+            // gbJednostki
+            // 
+            this.gbJednostki.Controls.Add(this.rbMohm);
+            this.gbJednostki.Controls.Add(this.rbKohm);
+            this.gbJednostki.Controls.Add(this.rbOhm);
+            this.gbJednostki.Location = new System.Drawing.Point(606, 303);
+            this.gbJednostki.Name = "gbJednostki";
+            this.gbJednostki.Size = new System.Drawing.Size(134, 115);
+            this.gbJednostki.TabIndex = 10;
+            this.gbJednostki.TabStop = false;
+            // 
+            // rbOhm
+            // 
+            this.rbOhm.AutoSize = true;
+            this.rbOhm.Location = new System.Drawing.Point(6, 19);
+            this.rbOhm.Name = "rbOhm";
+            this.rbOhm.Size = new System.Drawing.Size(47, 17);
+            this.rbOhm.TabIndex = 0;
+            this.rbOhm.Text = "Ohm";
+            this.rbOhm.UseVisualStyleBackColor = true;
+            this.rbOhm.CheckedChanged += new System.EventHandler(this.rbOhm_CheckedChanged);
+            // 
+            // rbKohm
+            // 
+            this.rbKohm.AutoSize = true;
+            this.rbKohm.Location = new System.Drawing.Point(6, 53);
+            this.rbKohm.Name = "rbKohm";
+            this.rbKohm.Size = new System.Drawing.Size(53, 17);
+            this.rbKohm.TabIndex = 1;
+            this.rbKohm.Text = "kOhm";
+            this.rbKohm.UseVisualStyleBackColor = true;
+            this.rbKohm.CheckedChanged += new System.EventHandler(this.rbKohm_CheckedChanged);
+            // 
+            // rbMohm
+            // 
+            this.rbMohm.AutoSize = true;
+            this.rbMohm.Location = new System.Drawing.Point(6, 92);
+            this.rbMohm.Name = "rbMohm";
+            this.rbMohm.Size = new System.Drawing.Size(56, 17);
+            this.rbMohm.TabIndex = 2;
+            this.rbMohm.Text = "MOhm";
+            this.rbMohm.UseVisualStyleBackColor = true;
+            this.rbMohm.CheckedChanged += new System.EventHandler(this.rbMohm_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.gbJednostki);
             this.Controls.Add(this.btnReset);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.lblWynik);
@@ -290,6 +340,8 @@
             this.gb.ResumeLayout(false);
             this.gb.PerformLayout();
             this.opornik.ResumeLayout(false);
+            this.gbJednostki.ResumeLayout(false);
+            this.gbJednostki.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,6 +366,10 @@
         private System.Windows.Forms.Panel pasek2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button btnReset;
+        private System.Windows.Forms.GroupBox gbJednostki;
+        private System.Windows.Forms.RadioButton rbMohm;
+        private System.Windows.Forms.RadioButton rbKohm;
+        private System.Windows.Forms.RadioButton rbOhm;
     }
 }
 
