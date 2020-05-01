@@ -17,51 +17,259 @@ namespace KalkulatorOporniki
             InitializeComponent();
         }
         string[] wynik = new string[5];                 // zapisujemy wartosci typu string dla poszczegolnych paskow
-        double result = 0.0, ohm=0.0, mOhm = 0.0;
-        StringBuilder finalResult = new StringBuilder();
+        double result = 0.0, kOhm = 0.0, mOhm = 0.0;        // zmienne sluzace do przechowywania wynikow
+        StringBuilder finalResult = new StringBuilder();        //Przechowuje koncowy wynik
 
         // guzik Reset czyści wsztstkie wartosci oraz ustawia RadioButtons jako niewcisniete
         private void btnReset_Click(object sender, EventArgs e)
         {
-            rb4paski.Checked = false;
-            rb5paskow.Checked = false;
-            rbOhm.Checked = false;
-            rbKohm.Checked = false;
-            rbMohm.Checked = false;
-            Reset();
-        }
-        private void Reset()
-        {
             // metoda reset czyści nam wszystkie wartości
             result = 0.0;
+            kOhm = 0.0;
+            mOhm = 0.0;
             finalResult.Clear();
 
+            // ustawia comboBoxy na wartości -1
             cbPasek1.SelectedIndex = -1;
             cbPasek2.SelectedIndex = -1;
             cbPasek3.SelectedIndex = -1;
             cbPasek4.SelectedIndex = -1;
             cbPasek5.SelectedIndex = -1;
 
+            // ustawia paski na kolor, ktory zostal przyjety jako domyslny
             pasek1.BackColor = Color.Aqua;
             pasek2.BackColor = Color.Aqua;
             pasek3.BackColor = Color.Aqua;
             pasek4.BackColor = Color.Aqua;
             pasek5.BackColor = Color.Aqua;
 
+            // odznacza przyciski
+            rb4paski.Checked = false;
+            rb5paskow.Checked = false;
+
+            rbOhm.Checked = false;
+            rbKohm.Checked = false;
+            rbMohm.Checked = false;
+
+            // Ustawia comboBoxy jako niedostepne
             cbPasek1.Enabled = false;
             cbPasek2.Enabled = false;
             cbPasek3.Enabled = false;
             cbPasek4.Enabled = false;
             cbPasek5.Enabled = false;
 
+            // czyscimy nasz wynik
             lblWynik.Text = string.Empty;
         }
-        // Ustawiamy pierwsza liczbe
-        private void cbPasek1_SelectedIndexChanged(object sender, EventArgs e)
+
+        // Wybieramy opornik z 4 paskami
+        private void rb4paski_CheckedChanged(object sender, EventArgs e)
+        {
+            // czyszczenie pola wyświetlającego wynik
+            lblWynik.Text = string.Empty;
+            // ustawiamy ponizsze comboBoxy jako dostepne
+            cbPasek1.Enabled = true;
+            cbPasek2.Enabled = true;
+            cbPasek4.Enabled = true;
+            cbPasek5.Enabled = true;
+
+            // ustawiamy comboBox oraz pasek 3 jako niedostepne
+            cbPasek3.Enabled = false;
+            pasek3.Visible = false;
+
+            // warunek, ktory pozwala na ponowne wyliczenie wartosci w przypadku, gdy przy wypelnionych
+            // comboBoxach zmieniamy z opornika z 5 paskami na opornik z 4 paskami
+            if (condition4paski())
+            {
+                getResult();            // otrzymujemy nasza zmienna result
+                CbPasek4();             // zaleznie od koloru 4 paska mnozymy zmienna result
+                getFinalResult();       // otrzymujemy koncowa wartosc zalezna od wybranych jednostek
+            }
+        }
+        // Wybieramy opornik z 5 paskami
+        private void rb5paskow_CheckedChanged(object sender, EventArgs e)
+        {
+            // czyszczenie pola wyświetlającego wynik
+            lblWynik.Text = string.Empty;
+            // ustawiamy ponizsze comboBoxy jako dostepne
+            cbPasek1.Enabled = true;
+            cbPasek2.Enabled = true;
+            cbPasek3.Enabled = true;
+            cbPasek4.Enabled = true;
+            cbPasek5.Enabled = true;
+
+            // Ustawiamy pasek 3 jako widoczny
+            pasek3.Visible = true;
+
+            // warunek, ktory pozwala na ponowne wyliczenie wartosci w przypadku, gdy przy wypelnionych
+            // comboBoxach zmieniamy z opornika z 4 paskami na opornik z 5 paskami
+            if (condition5paskow())
+            {
+                getResult();            // otrzymujemy nasza zmienna result
+                CbPasek4();             // zaleznie od koloru 4 paska mnozymy zmienna result
+                getFinalResult();       // otrzymujemy koncowa wartosc zalezna od wybranych jednostek
+            }
+        }
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
+        private void rbOhm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (condition4paski())
+            {
+                ToOhm();
+            }
+
+            if (condition5paskow())
+            {
+                ToOhm();
+            }
+        }
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
+        private void rbKohm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (condition4paski())
+            {
+                TokOhm();
+            }
+
+            if (condition5paskow())
+            {
+                TokOhm();
+            }
+
+        }
+        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
+        private void rbMohm_CheckedChanged(object sender, EventArgs e)
+        {
+            if (condition4paski())
+            {
+                ToMOhm();
+            }
+
+            if (condition5paskow())
+            {
+                ToMOhm();
+            }
+        }
+        // zamiana z kOhm na ohm
+        private void ToOhm()
+        {
+            finalResult.Clear();
+            finalResult.Append(result.ToString()).Append(" Ohm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
+        }
+        // zamiana z kOhm na MOhm
+        private void ToMOhm()
+        {
+            mOhm = result / 1000000;
+            finalResult.Clear();
+            finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
+        }
+        private void TokOhm()
+        {
+            kOhm = result / 1000;
+            finalResult.Clear();
+            finalResult.Append(kOhm.ToString()).Append(" kOhm").Append(wynik[4]);
+            lblWynik.Text = finalResult.ToString();
+        }
+
+        private void cbPaski_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            
+            CbPasek1();             // Ustawiamy pierwsza liczbe
+            
+            CbPasek2();             // Ustawiamy druga liczbe
+            
+            CbPasek3();             // Ustawiamy trzecia liczbe (ewentualnie)
+
+            getResult();            // otrzymujemy zmienna result
+            
+            CbPasek4();             // Ustawianie mnoznika 
+
+            CbPasek5();             // Ustawiamy tolerancje
+
+            getFinalResult();       // Wywołanie funkcji odpowiedzialnej za wyliczenie i wyswietlanie koncowego wyniku
+        }
+
+        // Warunek dla opornika z 4 paskami
+        private bool condition4paski()
+        {
+            if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        // Warunek dla opornika z 5 paskami
+        private bool condition5paskow()
+        {
+            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
+                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        private void getResult()
+        {
+            // jesli mamy 4 paski na oporniku result sklada sie z 2 liczb
+            if (rb4paski.Checked)
+            {
+                result = Convert.ToDouble(wynik[0] + wynik[1]);
+            }
+            // jesli mamy 4 paski na oporniku result sklada sie z 3 liczb
+            if (rb5paskow.Checked)
+            {
+                result = Convert.ToDouble(wynik[0] + wynik[1] + wynik[2]);
+            }
+        }
+        private void getFinalResult()
+        {
+            // Gdy spełniony warunek dla opornika z 4 paskami i wybrane jednoski, wywoluje jedno z ponizszych metod
+            if (condition4paski())
+            {
+                if (rbOhm.Checked)
+                {
+                    ToOhm();
+                }
+                else if (rbKohm.Checked)
+                {
+                    TokOhm();
+                }
+                else if (rbMohm.Checked)
+                {
+                    ToMOhm();
+                }
+            }
+            // Gdy spełniony warunek dla opornika z 5 paskami i wybrane jednoski, wywoluje jedno z ponizszych metod
+            if (condition5paskow())
+            {
+                if (rbOhm.Checked)
+                {
+                    ToOhm();
+                }
+                else if (rbKohm.Checked)
+                {
+                    TokOhm();
+                }
+                else if (rbMohm.Checked)
+                {
+                    ToMOhm();
+                }
+            }
+        }
+        // Ustawiamy liczbe pierwsza
+        private void CbPasek1()
         {
             if (cbPasek1.SelectedIndex > -1)
             {
-
                 switch (cbPasek1.SelectedIndex)
                 {
                     case 0:
@@ -103,14 +311,10 @@ namespace KalkulatorOporniki
                     default:
                         break;
                 }
-                finalResult.Append(wynik[0]);
             }
-            cbPasek1.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
-            cbPasek2.Enabled = true;            //Umożliwiamy zmianę kolory kolejnego paska
         }
-
-        // Ustawiamy druga liczbe
-        private void cbPasek2_SelectedIndexChanged(object sender, EventArgs e)
+        // Ustawiamy liczbe druga
+        private void CbPasek2()
         {
             if (cbPasek2.SelectedIndex > -1)
             {
@@ -159,22 +363,10 @@ namespace KalkulatorOporniki
                     default:
                         break;
                 }
-                finalResult.Append(wynik[1]);
-            }
-            cbPasek2.Enabled = false;  //Po ustawieniu koloru paska nie można go zmienić
-            // Jesli wybralismy opcje z 4 paskami odblokowujemy pasek 4, jesli z 5 odblokowujemy pasek 3
-            if (rb4paski.Checked)
-            {
-                cbPasek4.Enabled = true;
-            }
-            else
-            {
-                cbPasek3.Enabled = true;
             }
         }
-
-        // Ustawiamy trzecia liczbe (ewentualnie)
-        private void cbPasek3_SelectedIndexChanged(object sender, EventArgs e)
+        // Ustawiamy liczbe trzecia
+        private void CbPasek3()
         {
             if (cbPasek3.SelectedIndex > -1)
             {
@@ -223,69 +415,63 @@ namespace KalkulatorOporniki
                     default:
                         break;
                 }
-                finalResult.Append(wynik[2]);
             }
-            cbPasek3.Enabled = false;       //Po ustawieniu koloru paska nie można go zmienić
-            cbPasek4.Enabled = true;        //Mozemy ustawic kolejny pasek
         }
-        // Ustawianie mnoznika 
-        private void cbPasek4_SelectedIndexChanged(object sender, EventArgs e)
+        // Ustawienie mnoznika
+        private void CbPasek4()
         {
             if (cbPasek4.SelectedIndex > -1)
             {
-                result = Convert.ToDouble(finalResult.ToString());
+
                 switch (cbPasek4.SelectedIndex)
                 {
                     case 0:
                         pasek4.BackColor = Color.Silver;
-                        result /= 100000;
+                        result /= 100;
                         break;
                     case 1:
                         pasek4.BackColor = Color.Gold;
-                        result /= 10000;
+                        result /= 10;
                         break;
                     case 2:
                         pasek4.BackColor = Color.Black;
-                        result /= 1000;
+                        result *= 1;
                         break;
                     case 3:
                         pasek4.BackColor = Color.Brown;
-                        result /= 100;
+                        result *= 10;
                         break;
                     case 4:
                         pasek4.BackColor = Color.Red;
-                        result /= 10;
+                        result *= 100;
                         break;
                     case 5:
                         pasek4.BackColor = Color.Orange;
-                        result *= 1;
+                        result *= 1000;
                         break;
                     case 6:
                         pasek4.BackColor = Color.Yellow;
-                        result *= 10;
+                        result *= 10000;
                         break;
                     case 7:
                         pasek4.BackColor = Color.Green;
-                        result *= 100;
+                        result *= 100000;
                         break;
                     case 8:
                         pasek4.BackColor = Color.Blue;
-                        result *= 1000;
+                        result *= 1000000;
                         break;
                     case 9:
                         pasek4.BackColor = Color.Violet;
-                        result *= 10000;
+                        result *= 10000000;
                         break;
                     default:
                         break;
                 }
             }
-            cbPasek4.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
-            cbPasek5.Enabled = true;            //Mozemy ustawic kolejny pasek
         }
-
-        // Ustawiamy tolerancje
-        private void cbPasek5_SelectedIndexChanged(object sender, EventArgs e)
+        // Ustawienie tolerancji
+        private void CbPasek5()
         {
             if (cbPasek5.SelectedIndex > -1)
             {
@@ -327,115 +513,6 @@ namespace KalkulatorOporniki
                         break;
                 }
             }
-            // jesli guzik zostal wcisniety wczesniej, to po wybraniu ostatniego paska dokonujemy obliczen
-            if(rbOhm.Checked)
-            {
-                ToOhm();
-            }
-            else if(rbKohm.Checked)
-            {
-                TokOhm();
-            }
-            else if(rbMohm.Checked)
-            {
-                ToMOhm();
-            }
-            
-            cbPasek5.Enabled = false;           //Po ustawieniu koloru paska nie można go zmienić
         }
-        // Wybieramy opornik z 4 paskami
-        private void rb4paski_CheckedChanged(object sender, EventArgs e)
-        {
-            Reset();
-            cbPasek1.Enabled = true;
-            pasek3.Visible = false;
-
-        }
-        // Wybieramy opornik z 5 paskami
-        private void rb5paskow_CheckedChanged(object sender, EventArgs e)
-        {
-            Reset();
-            cbPasek1.Enabled = true;
-            pasek3.Visible = true;
-        }
-        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
-        private void rbOhm_CheckedChanged(object sender, EventArgs e)
-        {
-            if(rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 && 
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
-            {
-                ToOhm();
-            }
-
-            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
-            {
-                ToOhm();
-            }
-        }
-        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
-        private void rbKohm_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
-            {
-                TokOhm();
-            }
-
-            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
-            {
-                TokOhm();
-            }
-            
-        }
-        // guziki wyboru jednostki, zadzialaja, jesli wszystkie "paski" sa wybrane
-        private void rbMohm_CheckedChanged(object sender, EventArgs e)
-        {
-            if (rb4paski.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1)
-            {
-                ToMOhm();
-            }
-
-            if (rb5paskow.Checked && cbPasek1.SelectedIndex > -1 && cbPasek2.SelectedIndex > -1 &&
-                cbPasek4.SelectedIndex > -1 && cbPasek5.SelectedIndex > -1 && cbPasek3.SelectedIndex > -1)
-            {
-                ToMOhm();
-            }
-        }
-        // zamiana z kOhm na ohm
-        private void ToOhm()
-        {
-            ohm = result * 1000;
-            finalResult.Clear();
-            finalResult.Append(ohm.ToString()).Append(" Ohm").Append(wynik[4]);
-            lblWynik.Text = finalResult.ToString();
-        }
-        // zamiana z kOhm na MOhm
-        private void ToMOhm()
-        {
-            mOhm = result / 1000;
-            finalResult.Clear();
-            finalResult.Append(mOhm.ToString()).Append(" MOhm").Append(wynik[4]);
-            lblWynik.Text = finalResult.ToString();
-        }
-        private void TokOhm()
-        {
-            finalResult.Clear();
-            finalResult.Append(result.ToString()).Append(" kOhm").Append(wynik[4]);
-            lblWynik.Text = finalResult.ToString();
-        }
-       
     }
-
 }
-
-
-
-
-
-
-
-
-

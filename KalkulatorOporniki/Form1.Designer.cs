@@ -73,7 +73,7 @@
             this.cbPasek1.Name = "cbPasek1";
             this.cbPasek1.Size = new System.Drawing.Size(256, 21);
             this.cbPasek1.TabIndex = 0;
-            this.cbPasek1.SelectedIndexChanged += new System.EventHandler(this.cbPasek1_SelectedIndexChanged);
+            this.cbPasek1.SelectedIndexChanged += new System.EventHandler(this.cbPaski_SelectedIndexChanged);
             // 
             // cbPasek5
             // 
@@ -93,7 +93,7 @@
             this.cbPasek5.Name = "cbPasek5";
             this.cbPasek5.Size = new System.Drawing.Size(256, 21);
             this.cbPasek5.TabIndex = 1;
-            this.cbPasek5.SelectedIndexChanged += new System.EventHandler(this.cbPasek5_SelectedIndexChanged);
+            this.cbPasek5.SelectedIndexChanged += new System.EventHandler(this.cbPaski_SelectedIndexChanged);
             // 
             // cbPasek4
             // 
@@ -115,7 +115,7 @@
             this.cbPasek4.Name = "cbPasek4";
             this.cbPasek4.Size = new System.Drawing.Size(256, 21);
             this.cbPasek4.TabIndex = 2;
-            this.cbPasek4.SelectedIndexChanged += new System.EventHandler(this.cbPasek4_SelectedIndexChanged);
+            this.cbPasek4.SelectedIndexChanged += new System.EventHandler(this.cbPaski_SelectedIndexChanged);
             // 
             // cbPasek3
             // 
@@ -137,7 +137,7 @@
             this.cbPasek3.Name = "cbPasek3";
             this.cbPasek3.Size = new System.Drawing.Size(256, 21);
             this.cbPasek3.TabIndex = 3;
-            this.cbPasek3.SelectedIndexChanged += new System.EventHandler(this.cbPasek3_SelectedIndexChanged);
+            this.cbPasek3.SelectedIndexChanged += new System.EventHandler(this.cbPaski_SelectedIndexChanged);
             // 
             // cbPasek2
             // 
@@ -159,7 +159,7 @@
             this.cbPasek2.Name = "cbPasek2";
             this.cbPasek2.Size = new System.Drawing.Size(256, 21);
             this.cbPasek2.TabIndex = 4;
-            this.cbPasek2.SelectedIndexChanged += new System.EventHandler(this.cbPasek2_SelectedIndexChanged);
+            this.cbPasek2.SelectedIndexChanged += new System.EventHandler(this.cbPaski_SelectedIndexChanged);
             // 
             // gb
             // 
@@ -338,8 +338,10 @@
             this.Controls.Add(this.cbPasek4);
             this.Controls.Add(this.cbPasek5);
             this.Controls.Add(this.cbPasek1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Kalkulator do oporników";
             this.gb.ResumeLayout(false);
             this.gb.PerformLayout();
             this.opornik.ResumeLayout(false);
